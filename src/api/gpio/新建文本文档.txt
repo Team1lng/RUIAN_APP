@@ -1,0 +1,46 @@
+#include "leo_key.h"
+#include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <getopt.h>
+
+
+#define DET_KEY_KO_PATH "/usr/modules/ak_saradc.ko"
+#define DET_KEY_DEV "/sys/bus/iio/devices/iio:device0/in_voltage0_raw"
+static int det_key_dev_fd = -1;
+
+static char det_key_level = 0;
+
+
+/***
+** return:数值高于
+** monitor:数值高于
+** lock:数值高于
+** talk:数值高于
+***/
+
+
+
+
+//初始化
+bool det_key_pin_init(void)
+{
+    /***** 安装AVIN 的驱动文件 *****/
+    system("insmod "DET_KEY_KO_PATH);
+    /***** 打开设备结点 ******/
+    det_key_dev_fd = open(DET_KEY_DEV,O_RDONLY);
+    if(det_key_dev_fd < 0)
+    {
+        printf("open %s failed \n",DET_KEY_DEV);
+        return false;
+    }
+    det_key_level = det_call_pin_read();
+    printf("init det call pin success \n");
+    return true;
+
+}
+

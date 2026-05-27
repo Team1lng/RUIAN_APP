@@ -1,0 +1,10 @@
+prefix=/home/xiaole/smb/ipc_onvif_demo/open_source_libraries/mxml-3.3.1/output
+exec_prefix=/home/xiaole/smb/ipc_onvif_demo/open_source_libraries/mxml-3.3.1/output
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Mini-XML
+Description: Lightweight XML support library
+Version: 3.3.1
+Libs: -L${exec_prefix}/lib -lmxml
+Cflags: -I${prefix}/include
